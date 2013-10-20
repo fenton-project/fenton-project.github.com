@@ -13,7 +13,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Fenton Project by fenton-project</title>
+    <title>Fenton Project</title>
   </head>
 
   <body>
@@ -21,48 +21,121 @@
       <div class="inner">
         <h1>Fenton Project</h1>
         <h2>SSH Key Management</h2>
-        <a href="https://github.com/fenton-project" class="button"><small>Follow me on</small>GitHub</a>
+        <a href="https://github.com/fenton-project" class="button"><small>View projects on</small>GitHub</a>
       </div>
     </header>
 
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
+
+
           <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+            <a name="key-signed" class="anchor" href="#key-signed">
+              <span class="octicon octicon-link">
+              </span>
+            </a>
+            How to get a key signed
+          </h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+          <p>Command line client that interfaces with Fenton Server, which eases SSH Key Management.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<pre><code>$ fenton key sign
+Signing public key.
+Enter public key to submit (/home/nictrix/.ssh/id_ecdsa.pub): 
+Signed user key
+    ID: 'Nick Willever'
+    Serial: 7003768346854646072
+    Principal: ubuntu
+    Valid Between: 2013-10-19-11:02:15 PM - 2013-10-20-12:17:15 AM
+(/home/nictrix/.ssh/id_ecdsa-cert.pub)
+$ ssh ubuntu@&lt;server&gt;
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+          <p>(this assumes you have a running instance of <a href="https://github.com/fenton-project/server-api">fenton server-api</a>)</p>
+        
+          <h3>
+            <a name="why" class="anchor" href="#why">
+              <span class="octicon octicon-link">
+              </span>
+            </a>
+            Why?
+          </h3>
+          
+          <p>
+            User management is boring and tedious, it comes down to one thing, someone you trust needs to get access to your servers. 
+            What do you do? SSH for loop FTW! And what about when you stop trusting that person?
+            Yeah... and when you have utility computing everywhere doing that loop a couple times a day or even through a configuration management tool is not worth the trouble.
+          </p>
+          
+          <p>
+            Instead use SSH Certificates they allow you to configure a server for trusting signed user SSH keys. It will allow you to:
+          </p>
+          
+          <p>
+            <ul>
+              <li>
+                Sign them for specific time period
+              </li>
+              <li>
+                Revoke them
+              </li>
+              <li>
+                Option to share 1 account or give each user their own account
+              </li>
+              <li>
+                Great for vendors, contractors, etc...
+              </li>
+              <li>
+                Great for machine access like nagios and others
+              </li>
+              <li>
+                Can force commands without the problem of SFTP chroot, etc..
+              </li>
+              <li>
+                Can lock the signed key to specific hosts and where the hosts are being accessed from
+              </li>
+            </ul>
+          </p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+          <h3>
+            <a name="basics" class="anchor" href="#basics">
+              <span class="octicon octicon-link">
+              </span>
+            </a>
+            Basics of SSH Certificates
+          </h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+          <p>
+            <ul>
+              <li>
+                Create a CA private & public key      
+              </li>
+              <li>
+                Add the CA public key to the server that is needing to be accessed (update /etc/ssh/sshd_config)
+              </li>
+              <li>
+                Sign the user's public ssh key with the CA private key (creates a file -cert.pub)
+              </li>
+              <li>
+                They can now ssh with their private key because of the *-cert.pub file
+              </li>
+            </ul>
+          </p>
         </section>
 
         <aside id="sidebar">
+          <a href="https://github.com/fenton-project/shell/tarball/master" class="button">
+            <small>Shell Download</small>
+            .tar.gz file
+          </a>
+          
+          <a href="https://github.com/fenton-project/server-api/tarball/master" class="button">
+            <small>Server (API) Download</small>
+            .tar.gz file
+          </a>
 
+          <p class="repo-owner"><a href="https://github.com/fenton-project"></a> is maintained by <a href="https://github.com/fenton-project">fenton-project</a>.</p>
 
           <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
