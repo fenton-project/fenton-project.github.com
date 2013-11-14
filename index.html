@@ -28,32 +28,6 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-
-
-          <h3>
-            <a name="key-signed" class="anchor" href="#key-signed">
-              <span class="octicon octicon-link">
-              </span>
-            </a>
-            How to get a key signed
-          </h3>
-
-          <p>Command line client that interfaces with Fenton Server, which eases SSH Key Management.</p>
-
-<pre><code>$ fenton key sign
-Signing public key.
-Enter public key to submit (/home/nictrix/.ssh/id_ecdsa.pub): 
-Signed user key
-    ID: 'Nick Willever'
-    Serial: 7003768346854646072
-    Principal: ubuntu
-    Valid Between: 2013-10-19-11:02:15 PM - 2013-10-20-12:17:15 AM
-(/home/nictrix/.ssh/id_ecdsa-cert.pub)
-$ ssh ubuntu@&lt;server&gt;
-</code></pre>
-
-          <p>(this assumes you have a running instance of <a href="https://github.com/fenton-project/server-api">fenton server-api</a>)</p>
-        
           <h3>
             <a name="why" class="anchor" href="#why">
               <span class="octicon octicon-link">
@@ -97,6 +71,30 @@ $ ssh ubuntu@&lt;server&gt;
               </li>
             </ul>
           </p>
+
+          <h3>
+            <a name="key-signed" class="anchor" href="#key-signed">
+              <span class="octicon octicon-link">
+              </span>
+            </a>
+            How to get a key signed
+          </h3>
+
+          <p>Command line client that interfaces with Fenton Server, which eases SSH Key Management.</p>
+
+<pre><code>$ fenton key sign
+Signing public key.
+Enter public key to submit (/home/nictrix/.ssh/id_ecdsa.pub): 
+Signed user key
+    ID: 'Nick Willever'
+    Serial: 7003768346854646072
+    Principal: ubuntu
+    Valid Between: 2013-10-19-11:02:15 PM - 2013-10-20-12:17:15 AM
+(/home/nictrix/.ssh/id_ecdsa-cert.pub)
+$ ssh ubuntu@&lt;server&gt;
+</code></pre>
+
+          <p>(this assumes you have a running instance of <a href="https://github.com/fenton-project/server-api">fenton server-api</a>)</p>
 
           <h3>
             <a name="basics" class="anchor" href="#basics">
